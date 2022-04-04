@@ -1,0 +1,55 @@
+.profile__wrap{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.profile__avatarImgWrap{
+    padding: 30px;
+}
+
+.profile__avatarImg{
+    max-width: 100%;
+    max-height: 100%;
+    object-position: 50% 50%;
+}
+
+.profile__avatar{
+    border-radius: 50%;
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+}
+
+.profile__avatarBlock, .profile__settingBlock{
+    background-color: #eee;
+}
+
+.profile__menuList{
+    margin-top: 5px;
+}
+
+.profile__menuLink{
+    color: #666;
+    padding: 5px 0 5px 5px;
+
+    &:hover{
+        background-color: rgba(166, 249, 255, 0.3);
+        border-right: 4px solid rgba(88, 237, 248, 0.5);
+        cursor: pointer;
+    }
+}
+
+.profile__settingBlock{
+    padding: 10px;
+    width: 100%;
+    margin-left: 40px;
+}
+
+.profile__settingForm{
+    width: 400px;
+}
+
+.profile__formControl{
+    margin-bottom: 15px;;
+}

@@ -1,0 +1,14 @@
+<div class="home">
+    <div class="container">
+        <h1>Лента</h1>
+        <div class="home__content">
+            <div class="home__newBlock" *ngFor="let new of news">
+                <div class="home__newBlockTitle">{{ new.name }}</div>
+                <hr class="home__hr">
+                <p class="home__description">
+                    {{ new.description }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

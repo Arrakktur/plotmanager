@@ -1,0 +1,90 @@
+.projectDetail__wrap{
+    margin-top: 30px;
+}
+
+.projectDetail__content{
+    background-color: #eee;
+    padding: 15px 40px 40px;
+    border: 1px solid silver;
+}
+
+.projectDetail__img{
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.projectDetail__imgWrap{
+    width: 200px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    border: 1px solid silver;
+}
+
+.projectImgContainer{
+    width: 200px;
+}
+
+.projectDetail__headerSettings{
+    display: flex;
+    margin-top: 40px;
+}
+
+.projectDetail__headerMainSettings{
+    margin-left: 140px;
+}
+
+.projectDetail__input{
+    width: 300px;
+}
+
+.projectDetail__tabs{
+    margin-top: 40px;
+}
+
+.projectDetail__menuTabs{
+    margin-bottom: 10px;
+}
+
+.personList__title{
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.personList__img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.personList__list{
+    border: 1px solid silver;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover{
+        background-color: rgb(245, 245, 245);
+    }
+
+    &:not(:last-child){
+        margin-bottom: 10px;
+    }
+}
+
+.personList__listWrap{
+    display: flex;
+}
+
+.personList__avatar{
+    min-width: 150px;
+    max-width: 200px;
+    border: 1px solid silver;
+    margin-right: 20px;
+}
+
+.personList__name{
+    margin-bottom: 5px;
+}
+
+.projectDetail__inputSubmit{
+    margin-left: auto;
+    margin-right: 0;
+}

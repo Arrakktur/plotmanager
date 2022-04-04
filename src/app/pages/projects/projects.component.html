@@ -1,0 +1,30 @@
+<div class="project">
+    <div class="project__wrap">
+        <div class="container">
+            <h1 class="h1 project__title">Мои проекты</h1>
+            <div class="project__list">
+                <div class="project__element" *ngFor="let project of projectList" (click)="navigateToProject('test')">
+                    <div class="project__avatar">
+                        <img src="../../../assets/img/previewProject.png" alt="avatar" class="project__avatarImg">
+                    </div>
+                    <div class="project__description">
+                        <div class="project__elementTitle">
+                            {{ project.getName() }}
+                        </div>
+                        <div class="project__elementPreview">
+                            {{ project.getDescription() }}
+                        </div>
+                    </div>
+                    <div class="project__control">
+                        <input type="button" class="btn btn-danger" value="Удалить" (click)="removeProject(project.getName(), $event)">
+                    </div>
+                </div>
+                <div class="btn-group project__pagination" *ngIf="pageNumbers.length > 1">
+                    <button *ngFor="let page of pageNumbers" (click)="changePage(page)" class="btn btn-outline-primary" [class.active]="page == selectedPage">
+                        {{ page }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

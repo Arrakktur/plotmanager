@@ -1,0 +1,74 @@
+<div class="projectDetail">
+    <div class="projectDetail__wrap">
+        <div class="container">
+            <div class="projectDetail__tabs">
+                <ul class="nav nav-tabs projectDetail__menuTabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#main" type="button" role="tab" aria-controls="main" aria-selected="true">Основное</button>
+                      </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="false">Сюжеты</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Персонажи</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Доска</button>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="main" role="tabpanel1" aria-labelledby="main-tab">
+                        <div class="projectDetail__content">
+                            <h1>{{ project.getName() }}</h1>
+                            <p> 
+                                {{ project.getDescription() }}
+                            </p>      
+                            <div class="projectDetail__headerSettings">
+                                <div class="projectImgContainer">
+                                    <div class="projectDetail__imgWrap">
+                                        <img src="../../../assets/img/previewProject.png" alt="img" class="projectDetail__img">
+                                    </div>
+                                    <input type="button" class="btn btn-primary" value="Изменить изображение">
+                                </div>
+                                <div class="projectDetail__headerMainSettings">
+                                    <div class="projectDetail__headerWrap">
+                                        <p>
+                                            Название проекта: 
+                                            <input type="text" placeholder="{{ project.getName() }}" class="projectDetail__input">
+                                        </p>
+                                        <p>
+                                            Описание проекта:
+                                            <input type="text" placeholder="{{  project.getDescription() }}" class="projectDetail__input">
+                                        </p>
+                                        <p>
+                                            <input type="button" class="btn btn-primary projectDetail__inputSubmit" value="Сохранить">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div> 
+                    <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">Список сюжетов</div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="personList">
+                            <div class="personList__list" 
+                            *ngFor="let person of personList"
+                            (click)="navigateToPersonDetail()">
+                                <div class="personList__listWrap">
+                                    <div class="personList__avatar">
+                                        <img src="{{ person.avatar }}" alt="" class="personList__img">
+                                    </div>
+                                    <div class="personList__content">
+                                        <p class="personList__name"><b>{{ person.name }}</b></p>
+                                        <p class="personList__description">{{ person.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">Доска</div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="profile">
+        <div class="profile__wrap">
+            <div class="profile__avatarBlock">
+                <div class="profile__avatarImgWrap">
+                    <div class="profile__avatar">
+                        <img src="../../../assets/img/avatar.jpg" alt="" class="profile__avatarImg">
+                    </div>
+                </div>
+                <div class="profile__menuList">
+                    <div class="profile__menuLink">Основные настройки</div>
+                    <div class="profile__menuLink">Настройка 2</div>
+                    <div class="profile__menuLink">Настройка 3</div>
+                    <div class="profile__menuLink">Настройка 4</div>
+                    <div class="profile__menuLink">Настройка 5</div>
+                </div>
+            </div>
+            <div class="profile__settingBlock">
+                <form class="profile__settingForm">
+                    <div class="form-group profile__formControl">
+                        <label for="name">Имя</label>
+                        <input type="text" class="form-control" id="name" placeholder="Имя" value="{{profile.getName()}}">
+                    </div>
+                    <div class="profile__formControl">
+                        <div>
+                            <label class="sr-only" for="inlineFormInputGroup">Логин</label>
+                        </div>
+                        <div class="profile__formControl input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">@</div>
+                            </div>
+                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Логин" value="{{profile.getLogin()}}">
+                        </div>
+                    </div>
+                    <div class="profile__formControl">
+                        <button type="submit" class="btn btn-primary mb-2">Принять</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
