@@ -28,7 +28,7 @@ menuItems = [
 ]
 
   constructor(
-    private router: Router
+    public router: Router
   ) { }
 
   ngOnInit(): void {

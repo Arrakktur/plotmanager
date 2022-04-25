@@ -1,0 +1,21 @@
+<div class="auth">
+    <div class="container">
+        <h1>Авторизация</h1>
+        <p *ngIf="errorMessage != ''" class="auth__formError">
+            <span>{{ errorMessage }}</span>
+        </p>
+        <form action="/post" method="post" class="auth__form" novalidate #form="ngForm" (ngSubmit)="onSubmit(form)">
+            <p>
+                Логин:
+                <input type="text" placeholder="Логин" name="login" [(ngModel)]="login" required>
+            </p>
+            <p>
+                Пароль:
+                <input type="text" placeholder="Пароль" name="password"[(ngModel)]="password" required>
+            </p>
+            <p>
+                <input type="submit" class="btn btn-primary" value="Войти" name="submit">
+            </p>
+        </form>
+    </div>
+</div>

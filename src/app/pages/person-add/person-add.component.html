@@ -1,0 +1,20 @@
+<div class="personAdd">
+    <div class="personAdd__wrap">
+        <div class="container">
+            <h1>
+                Добавление персонажа
+            </h1>
+            <form class="personAdd__form">
+                <p>
+                    Имя персонажа:
+                    <input type="text" name="name" id="" required [(ngModel)]="name">
+                </p>
+                <p>
+                    Описание персонажа:
+                    <input type="text" name="description" id="" required [(ngModel)]="description">
+                </p>
+                <input type="button" class="btn btn-primary" value="Добавить персонажа" (click)="onSubmit()">
+            </form>
+        </div>
+    </div>
+</div>

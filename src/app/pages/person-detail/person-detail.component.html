@@ -2,17 +2,58 @@
     <div class="container">
         <h1>Редактирование персонажа</h1>
         <div class="personDetail__content">
-            <p>
-                Имя персонажа:
-                <input type="text" class="">
-            </p>
-            <p>
-                Описание персонажа:
-                <input type="text" class="">
-            </p>
-            <p>
-                <button type="submit" class="btn btn-primary mb-2">Сохранить</button>
-            </p>
+            <div class="personDetail__avatarBlock">
+                <div class="personDetail__avatarWrap">
+                    <img src="../../../assets/img/defaultPerson.png" alt="" class="personDetail__avatar">
+                </div>
+            </div>
+            <div>
+                <form #myForm="ngForm" novalidate (ngSubmit)="onSubmit(myForm)">
+                    <p>
+                        Аватар: 
+                        <input type="file" name="file" [(ngModel)]="avatarFile">                
+                    </p>
+                    <p>
+                        Имя персонажа:
+                        <input type="text" class="" name="name" [(ngModel)]="name" placeholder="{{person.getName()}}">
+                    </p>
+                    <p>
+                        Описание персонажа:
+                        <input type="text" class="" name="description" [(ngModel)]="description" placeholder="{{person.getDescription()}}">
+                    </p>
+                    <input type="submit" class="btn btn-primary personDetail__btnUploadAvatar" value="Сохранить" name="submit">
+                </form>
+            </div>
+        </div>
+        <div class="personDetail__mainOptions">
+            <div class="personDetail__tabs">
+                <ul class="nav nav-tabs personDetail__menuTabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#main" type="button" role="tab" aria-controls="main" aria-selected="true">Основное</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="story-tab" data-bs-toggle="tab" data-bs-target="#story" type="button" role="tab" aria-controls="story" aria-selected="false">Сюжеты</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="arts-tab" data-bs-toggle="tab" data-bs-target="#arts" type="button" role="tab" aria-controls="arts" aria-selected="false">Арты</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="params-tab" data-bs-toggle="tab" data-bs-target="#params" type="button" role="tab" aria-controls="params" aria-selected="false">Характеристики</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="inventary-tab" data-bs-toggle="tab" data-bs-target="#inventary" type="button" role="tab" aria-controls="inventary" aria-selected="false">Инвентарь</button>
+                  </li>
+                </ul>
+                <div class="tab-content personDetail__tabsContent" id="myTabContent">
+                    <div class="tab-pane fade show active" id="main" role="tabpanel1" aria-labelledby="main-tab">Основное</div> 
+                    <div class="tab-pane fade" id="story" role="tabpanel" aria-labelledby="story-tab">Список сюжетов</div>
+                    <div class="tab-pane fade" id="arts" role="tabpanel" aria-labelledby="arts-tab">Арты</div>
+                    <div class="tab-pane fade" id="params" role="tabpanel" aria-labelledby="params-tab">
+                        <h4>Характеристки</h4>
+                    </div>
+                    <div class="tab-pane fade" id="inventary" role="tabpanel" aria-labelledby="inventary-tab">Инвентарь</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

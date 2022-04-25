@@ -1,0 +1,20 @@
+<div class="projectAdd">
+    <div class="projectAdd__wrap">
+        <div class="container">
+            <h1>
+                Добавление проекта 
+            </h1>
+            <form class="projectAdd__form">
+                <p>
+                    Название проекта:
+                    <input type="text" name="name" id="" required [(ngModel)]="name">
+                </p>
+                <p>
+                    Описание проекта:
+                    <input type="text" name="description" id="" required [(ngModel)]="description">
+                </p>
+                <input type="button" class="btn btn-primary" value="Добавить проект" (click)="onSubmit()">
+            </form>
+        </div>
+    </div>
+</div>

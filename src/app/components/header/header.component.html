@@ -13,7 +13,7 @@
         </div>
         <form class="form-inline">
             <a class="header__profile text-light" href="/profile">Профиль</a>
-            <button class="btn btn-outline-light" type="submit">Выход</button>
+            <button class="btn btn-outline-light" type="submit" (click)="this.router.navigateByUrl('/auth')">Вход</button>
         </form>
     </div>
   </nav>

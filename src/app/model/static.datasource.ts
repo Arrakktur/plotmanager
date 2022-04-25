@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Profile } from "./profile.model";
-import { Project, ProjectList } from "./project.model";
+import { RestDataSourse } from "./rest.service";
+import { Observable } from "rxjs";
+import { Person, Project } from "./project.model";
 
 /**
  * Заполнение данных
@@ -9,30 +11,45 @@ import { Project, ProjectList } from "./project.model";
 export class StaticDataSource {
     
     private profile: Profile;
-    private projectList: ProjectList;
 
-    constructor(){
+    constructor(
+        private restDataSourse: RestDataSourse,
+    ){
         this.profile = new Profile('example.ru', 'password', 'MyName');
-        this.projectList = new ProjectList([
-            new Project('Название проекта 1', 'Описание проекта 1'),
-            new Project('Название проекта 2', 'Описание проекта 2'),
-            new Project('Название проекта 3', 'Описание проекта 3'),
-            new Project('Название проекта 4', 'Описание проекта 4'),
-            new Project('Название проекта 5', 'Описание проекта 5'),
-            new Project('Название проекта 6', 'Описание проекта 6'),
-            new Project('Название проекта 7', 'Описание проекта 7'),
-            new Project('Название проекта 8', 'Описание проекта 8'),
-            new Project('Название проекта 9', 'Описание проекта 9'),
-            new Project('Название проекта 10', 'Описание проекта 10'),
-        ]);
-        console.log('start');
     }
 
+    // Возвращает профиль
     getProfile(): Profile{
         return this.profile;
     }
 
-    getProjectList(): ProjectList{
-        return this.projectList;
+    // Возвращаем список заполненый проектов
+    getProjectList(): Observable<string>{
+        return this.restDataSourse.getProjects();
+    }
+
+    // Возвращаем список заполненый проектов
+    getProject(id: number): Observable<string>{
+        return this.restDataSourse.getProject(id);
+    }
+
+    // Добавление проекта
+    addProject(project: Project): Observable<string>{
+        return this.restDataSourse.addProject(project);
+    }
+
+    // Возвращает список персонажей
+    getPersons(id: number): Observable<string>{
+        return this.restDataSourse.getPersons(id);
+    }
+
+    // Возвращает персонажа по id
+    getPerson(id: number): Observable<string>{
+        return this.restDataSourse.getPerson(id);
+    }
+
+    // Добавление нового персонажа
+    addPerson(person: Person, id: number): Observable<string>{
+        return this.restDataSourse.addPerson(person, id);
     }
 }
