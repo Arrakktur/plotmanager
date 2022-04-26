@@ -20,6 +20,8 @@ import { FormsModule } from '@angular/forms';
 import { RestDataSourse } from './model/rest.service';
 import { PersonAddComponent } from './pages/person-add/person-add.component';
 import { AuthGuard } from './guard/auth.guard';
+import { AuthenticationService } from './servises/authentication.service';
+import { RegistrComponent } from './pages/registr/registr.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { AuthGuard } from './guard/auth.guard';
     AuthComponent,
     ProjectAddComponent,
     PersonAddComponent,
+    RegistrComponent,
     ],
   imports: [
     BrowserModule,
@@ -41,20 +44,21 @@ import { AuthGuard } from './guard/auth.guard';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: "profile", component: ProfileComponent},
-      { path: "project-detail", component: ProjectDetailComponent},
-      { path: "friends", component: FriendsComponent},
+      { path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
+      { path: "project-detail", component: ProjectDetailComponent, canActivate: [AuthGuard]},
+      { path: "friends", component: FriendsComponent, canActivate: [AuthGuard]},
       { path: "home", component: HomeComponent},
-      { path: "person-detail", component: PersonDetailComponent},
+      { path: "person-detail", component: PersonDetailComponent, canActivate: [AuthGuard]},
       { path: "auth", component: AuthComponent},
-      { path: "project-add", component: ProjectAddComponent},
-      { path: "person-add", component: PersonAddComponent},
+      { path: "project-add", component: ProjectAddComponent, canActivate: [AuthGuard]},
+      { path: "person-add", component: PersonAddComponent, canActivate: [AuthGuard]},
       { path: "projects", component: ProjectsComponent, canActivate: [AuthGuard]},
       { path: "**", redirectTo: "/home"},
     ])
   ],
   providers: [
     ProfileRepository,
+    AuthenticationService,
     StaticDataSource,
     RestDataSourse,
     AuthGuard,

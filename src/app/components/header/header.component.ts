@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { RestDataSourse } from 'src/app/model/rest.service';
+import { ProfileRepository } from 'src/app/model/data.repository';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+public isLogin: boolean;
 
 menuItems = [
   {
@@ -28,10 +32,28 @@ menuItems = [
 ]
 
   constructor(
-    public router: Router
-  ) { }
+    public router: Router,
+    public rest: RestDataSourse,
+    public repository: ProfileRepository,
+  ) {
+    this.isLogin = this.rest.auth_token !== '';
 
-  ngOnInit(): void {
+    // todo костыль, который нужно исправить
+    setInterval(() => {
+      this.isLogin = this.rest.auth_token !== '';
+    }, 500);
   }
 
+  ngOnInit(): void {
+    
+  }
+
+  navigate(page: string): void{
+    this.router.navigateByUrl(page);
+  }
+
+  logout(){
+    this.rest.logout();
+    this.navigate('/home');
+  }
 }

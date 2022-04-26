@@ -1,19 +1,20 @@
 <nav class="header navbar-expand-lg navbar navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">PlotManager</a>
+        <span class="navbar-brand" (click)="navigate('/home')">PlotManager</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item active" *ngFor="let item of menuItems">
-                    <a class="nav-link" href="{{ item.link }}">{{ item.name }}</a>
+                <li class="nav-item active header__item" *ngFor="let item of menuItems">
+                    <a class="nav-link" (click)="navigate(item.link)">{{ item.name }}</a>
                 </li>
             </ul>
         </div>
         <form class="form-inline">
-            <a class="header__profile text-light" href="/profile">Профиль</a>
-            <button class="btn btn-outline-light" type="submit" (click)="this.router.navigateByUrl('/auth')">Вход</button>
+            <span *ngIf="isLogin" class="header__profile text-light" (click)="navigate('/profile')">Профиль</span>
+            <button *ngIf="isLogin" class="btn btn-outline-light" type="submit" (click)="logout()">Выход</button>
+            <button *ngIf="!isLogin" class="btn btn-outline-light" type="submit" (click)="navigate('/auth')">Вход</button>
         </form>
     </div>
   </nav>

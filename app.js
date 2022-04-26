@@ -7,6 +7,11 @@ const app = express();
 // создаем парсер для данных application/x-www-form-urlencoded
 const urlencodedParser = express.urlencoded({extended: false});
 
+// Аутентификатор
+class AuthService {
+  
+}
+
 // Класс для работы с базой данных
 class db{
   database = new sqlite3.Database('database.db', (err) => {
@@ -14,12 +19,29 @@ class db{
     console.log('Connect to database');
   });
 
-  /** Аутентификация/Авторизация
+  /** Аутентификация/Авторизация по логину и паролю
    *
-   * returns token 
+   * @returns string token 
    */
   checkAuth(login, password){
-    let sql = `SELECT token FROM users WHERE login='${login}'`;
+    let sql = `SELECT token FROM users WHERE login='${login}' AND password='${password}'`;
+    return new Promise((res, rej) => {
+      this.database.all(sql, [], (err, rows) => {
+        if (err) throw err;
+        res(rows);
+      });
+    })
+  }
+
+  /**
+   * Аутентификация по токену
+   * 
+   * @param {string} token 
+   * 
+   * @returns string checkToken
+   */
+  checkAuthJWT(token){
+    let sql = `SELECT COUNT(*) FROM users WHERE token='${token}'`;
     return new Promise((res, rej) => {
       this.database.all(sql, [], (err, rows) => {
         if (err) throw err;
@@ -31,7 +53,18 @@ class db{
   // Запрос на регистрацию
   registr(login, password){
     let sql = `SELECT login FROM users WHERE login='${login}'`;
-    // тут проверка на существование такого логина и запись в базу данных
+    return new Promise((res, rej) => {
+      this.database.all(sql, [], (err, rows) => {
+        if (err) throw err;
+        if (rows.length <= 0){
+          sql = `INSERT INTO users(login, password, token) VALUES('${login}', '${password}', '${password}')`;
+          this.database.run(sql);
+          res(true);
+        } else {
+          res(false);
+        }
+      });
+    })
   }
 
   // Получение списка проектов
@@ -91,9 +124,16 @@ class db{
     let sql = `INSERT INTO persons(id, name, description) VALUES(NULL, '${person.name}', '${person.description}')`;
     return new Promise((res, rej) => {
       this.database.run(sql);
-      sql = `INSERT INTO "persons-projects" (person_id, projects_id) VALUES(LAST_INSERT_ROWID(), ${person.id});`
-      this.database.run(sql);
-      res(true);
+      sql = `SELECT MAX(id) FROM users`;
+
+      this.database.all(sql, [], (err, rows) => {
+        if (err) throw err;
+        console.log(rows);
+
+        sql = `INSERT INTO "persons-projects" (person_id, projects_id) VALUES(LAST_INSERT_ROWID(), ${person.id});`
+        this.database.run(sql);
+        res(true);
+      });
     })
   }
 
@@ -118,9 +158,11 @@ app.post('/post', urlencodedParser, (req, res) => {
     console.log(req.body);
 
     // Установка заголовков
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+    //res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); //dev
+    // res.setHeader('Access-Control-Allow-Origin', 'http://91.201.254.176:2113'); //prod
+    res.setHeader('Access-Control-Allow-Origin', '*'); //test
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requesred-With, Content-type, Accept, x-client-key, x-client-token, x-client-secret, Authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization, Origin, X-Requesred-With, Content-type, Accept, x-client-key, x-client-token, x-client-secret');
     res.setHeader('Access-Control-Allow-Credentials', true);
 
     // Авторизация
@@ -137,6 +179,26 @@ app.post('/post', urlencodedParser, (req, res) => {
       )
     }
 
+    // Регистрация 
+    if (req.body.action == 'reg'){
+      let user = JSON.parse(req.body.data).user;
+      database.registr(user.login, user.password).then(
+        result => { 
+          if(result.length = 1){
+            res.send(JSON.stringify(result));
+          } else {
+            res.send(false);
+          }
+        }
+      )
+    }
+
+    // Запросы требующие авторизацию
+    if(req.headers.authorization){
+      console.log('token:')
+      console.log(req.headers.authorization);
+    }
+    
     // Добавление нового проекта
     if (req.body.action == 'addProject'){
       let project = JSON.parse(req.body.data).project;
@@ -204,8 +266,8 @@ app.use(express.static(__dirname + "/dist/plotmanager"));
 
 // Отдаем сайт
 app.use(function (request, response) {
-    response.sendFile(__dirname + "/dist/plotmanager/index.html");
-  });
+  response.sendFile(__dirname + "/dist/plotmanager/index.html");
+});
 
 // Запуск сервера
 app.listen(3000);

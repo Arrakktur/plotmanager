@@ -9,6 +9,10 @@ export class HomeComponent implements OnInit {
 
   news = [
     {
+      name: 'Обновление 0.0.3',
+      description: 'Добавлена авторизация',
+    },
+    {
       name: 'Обновление 0.0.2',
       description: 'Добавлена детальная страница добавления и изменения персонажей',
     },
